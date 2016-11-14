@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="HelloWebforms._Default" %>
-
+<%@ Register TagPrefix="uc" TagName="wc1" Src="~/WebControl1.ascx" %>
+<%@ Register TagPrefix="uc" TagName="webdebugcontrol" Src="~/WebDebugControl.ascx" %>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="jumbotron">
@@ -15,6 +16,17 @@
                 ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
             A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.
             </p>
+            <p>
+                <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+                <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
+            </p>
+            <p>
+                <uc:wc1 runat="server" ></uc:wc1></p>
+                     <p>
+                <uc:webdebugcontrol runat="server" ></uc:webdebugcontrol></p>       
+                
+            <p>
+                &nbsp;</p>
             <p>
                 <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
             </p>

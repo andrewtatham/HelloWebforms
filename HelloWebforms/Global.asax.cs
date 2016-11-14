@@ -16,6 +16,10 @@ namespace HelloWebforms
             // Code that runs on application startup
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            Application["Message"] = "Welcome to the Contoso site.";
+            Application["PageRequestCount"] = 0;
+
         }
     }
 }
