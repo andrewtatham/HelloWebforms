@@ -13,23 +13,20 @@ namespace HelloWebforms.Pages.Pages
 {
     public class LoginPage : BasePage
     {
-        private IWebElement LogInButton;
-
         public LoginPage(IWebDriver driver) : base(driver, "Account/Login", "Log in", "Log in")
         {
-            
+
         }
 
-        public BasePage Login(Credentials credentials, bool rememberMe=false)
+        public BasePage Login(Credentials credentials, bool rememberMe = false)
         {
             Driver.FindElement(By.Id("MainContent_Email")).SendKeys(credentials.Email);
             Driver.FindElement(By.Id("MainContent_Password")).SendKeys(credentials.Password);
             var rememberMeCheckbox = Driver.FindElement(By.Id("MainContent_RememberMe"));
             if (rememberMeCheckbox.Selected != rememberMe)
                 rememberMeCheckbox.Click();
-            
 
-            LogInButton = Driver.FindElement(ByExtensionMethods.Attribute("input", "type","submit"));
+            var LogInButton = Driver.FindElement(ByExtensionMethods.Attribute("input", "type", "submit"));
             LogInButton.Click();
 
             if (Driver.GetText().Contains("Invalid login attempt"))

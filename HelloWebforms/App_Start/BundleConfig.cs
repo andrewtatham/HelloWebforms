@@ -41,6 +41,19 @@ namespace HelloWebforms
                     Path = "~/Scripts/respond.min.js",
                     DebugPath = "~/Scripts/respond.js",
                 });
+            ScriptManager.ScriptResourceMapping.AddDefinition(
+                "knockout",
+                new ScriptResourceDefinition
+                {
+                    Path = "~/Scripts/knockout-3.4.0.js",
+                });
+
+            ScriptManager.ScriptResourceMapping.AddDefinition(
+                "require",
+                new ScriptResourceDefinition
+                {
+                    Path = "~/Scripts/require.js",
+                });
         }
     }
 }

@@ -16,13 +16,13 @@ namespace HelloWebforms.BehaviourTests.Bindings
     public static class StepDefinition
     {
 
-        private static BasePage currentPage;
+        private static BasePage _currentPage;
 
 
         [Given("I am on the (.*) page")]
         public static void GivenIAmOnThePage(string pageName)
         {
-            currentPage = PageFactory.GetPage(pageName);
+            _currentPage = PageFactory.GetPage(pageName);
         }
 
 
@@ -30,18 +30,18 @@ namespace HelloWebforms.BehaviourTests.Bindings
         [Given("I am logged out")]
         public static void GivenIAmLoggedOut()
         {
-            if (currentPage.IsLoggedIn())
+            if (_currentPage.IsLoggedIn())
             {
-                currentPage.LogOut();
+                _currentPage.LogOut();
             }
         }
         [Given("I am logged in with")]
         public static void GivenIAmLoggedIn(Table table)
         {
-            if (!currentPage.IsLoggedIn())
+            if (!_currentPage.IsLoggedIn())
             {
-                currentPage = currentPage.Navigate(typeof(LoginPage));
-                currentPage = ((LoginPage)currentPage).Login(table.CreateInstance<Credentials>());
+                _currentPage = _currentPage.Navigate(typeof(LoginPage));
+                _currentPage = ((LoginPage)_currentPage).Login(table.CreateInstance<Credentials>());
             }
         }
 
@@ -49,21 +49,21 @@ namespace HelloWebforms.BehaviourTests.Bindings
         [When("I navigate to the (.*) page")]
         public static void WhenINavigate(string pageName)
         {
-            currentPage = currentPage.Navigate(pageName);
+            _currentPage = _currentPage.Navigate(pageName);
         }
 
         [When("I enter my account details")]
         public static void WhenIEnterMyAccountDetails(Table table)
         {
-            if (currentPage is LoginPage)
+            if (_currentPage is LoginPage)
             {
                 var credentials = table.CreateInstance<Credentials>();
-                currentPage = ((LoginPage)currentPage).Login(table.CreateInstance<Credentials>());
+                _currentPage = ((LoginPage)_currentPage).Login(table.CreateInstance<Credentials>());
             }
-            else if (currentPage is RegisterPage)
+            else if (_currentPage is RegisterPage)
             {
                 var credentials = table.CreateInstance<Credentials>();
-                currentPage = ((RegisterPage)currentPage).Register(table.CreateInstance<Credentials>());
+                _currentPage = ((RegisterPage)_currentPage).Register(table.CreateInstance<Credentials>());
             }
             else
             {
@@ -75,7 +75,7 @@ namespace HelloWebforms.BehaviourTests.Bindings
         [When("I log out")]
         public static void WhenILogOut()
         {
-            currentPage.LogOut();
+            _currentPage.LogOut();
         }
 
 
@@ -83,8 +83,8 @@ namespace HelloWebforms.BehaviourTests.Bindings
         public static void ThenIAmOnThePage(string pageName)
         {
             var expectedPageType = PageFactory.GetExpectedPageType(pageName);
-            Assert.IsInstanceOf(expectedPageType, currentPage);
-            Assert.IsTrue(currentPage.Validate());
+            Assert.IsInstanceOf(expectedPageType, _currentPage);
+            Assert.IsTrue(_currentPage.Validate());
         }
 
 
@@ -93,7 +93,7 @@ namespace HelloWebforms.BehaviourTests.Bindings
         [Then("I am logged (in|out)")]
         public static void ThenIAmLoggedInOrOut(string inOrOut)
         {
-            Assert.AreEqual(currentPage.IsLoggedIn(), inOrOut.ToLowerInvariant() == "in");
+            Assert.AreEqual(_currentPage.IsLoggedIn(), inOrOut.ToLowerInvariant() == "in");
         }
 
         [BeforeFeature]
@@ -101,7 +101,7 @@ namespace HelloWebforms.BehaviourTests.Bindings
         {
             PageFactory.CreateWebdriver();
 
-            currentPage = PageFactory.GetPage("Home");
+            _currentPage = PageFactory.GetPage("Home");
         }
 
         [AfterFeature]

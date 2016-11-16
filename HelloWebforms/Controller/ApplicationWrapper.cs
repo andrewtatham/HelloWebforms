@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace HelloWebforms
 {
-    public class ApplicationWrapper
+    public class ApplicationWrapper : IApplicationWrapper
     {
         private readonly HttpApplicationState _application;
 

@@ -5,7 +5,7 @@ using HelloWebforms.Helpers;
 
 namespace HelloWebforms
 {
-    public class SessionWrapper
+    public class SessionWrapper : ISessionWrapper
     {
         private readonly HttpSessionState _session;
 
@@ -36,8 +36,9 @@ namespace HelloWebforms
 
         public void SetUpdated()
         {
-            Thread.Sleep(1000);
             _session.Add("Updated at", DateTime.Now);
         }
+
+        public string SessionId => _session.SessionID;
     }
 }

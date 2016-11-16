@@ -4,7 +4,7 @@ using HelloWebforms.Helpers;
 
 namespace HelloWebforms
 {
-    public class RequestWrapper
+    public class RequestWrapper : IRequestWrapper
     {
         private readonly HttpRequest _request;
 

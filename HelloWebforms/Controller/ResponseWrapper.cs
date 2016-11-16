@@ -3,7 +3,7 @@ using HelloWebforms.Helpers;
 
 namespace HelloWebforms
 {
-    public class ResponseWrapper
+    public class ResponseWrapper : IResponseWrapper
     {
         private readonly HttpResponse _response;
 

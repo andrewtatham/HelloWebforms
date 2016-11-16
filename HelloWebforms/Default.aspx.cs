@@ -10,19 +10,28 @@ namespace HelloWebforms
 {
     public partial class _Default : Page
     {
-        private DefaultController _controller;
+        public IDefaultController Controller;
 
-        protected void Page_Load(object sender, EventArgs e)
+        public void Page_Load(object sender, EventArgs e)
         {
-            
+            InitController();
 
-            _controller = new DefaultController(this);
-            Label1.Text = _controller.OnLoad();
+            Label1.Text = Controller.OnLoad();
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        public void InitController(IDefaultController controller = null)
         {
-            Label1.Text = _controller.SessionInfo();
+            if (Controller == null)
+            {
+                Controller = controller ?? new DefaultController(this);
+            }
+        }
+
+        public void Button1_Click(object sender, EventArgs e)
+        {
+            InitController();
+
+            Label1.Text = Controller.GetDebugInfo().ToString();
         }
 
 

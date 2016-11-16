@@ -9,16 +9,31 @@ namespace HelloWebforms
 {
     public partial class WebDebugControl : System.Web.UI.UserControl
     {
-        private WebDebugControlController _controller;
+        public IWebDebugControlController Controller;
 
-
-
-        protected void Page_Load(object sender, EventArgs e)
+        public void InitController(IWebDebugControlController controller = null)
         {
-            _controller = new WebDebugControlController(this);
-           Label1.Text = _controller.GetDebugInfo().ToString();
+            if (Controller == null)
+            {
+                Controller = controller ?? new WebDebugControlController(this);
+            }
+        }
 
-        
+        public void Page_Load(object sender, EventArgs e)
+        {
+            InitController();
+
+
+            //var text = BaseController.GetDebugInfo().ToString();
+
+
+            // ASP.NET code-behind
+            var text = Controller.SessionID;
+            codeBehindLabel.Text = text;
+            codeBehindLiteral.Text = text;
+
+            //ASP.NET Databinding 
+            Page.DataBind();
         }
     }
 }
